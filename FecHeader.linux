@@ -8,7 +8,7 @@ XDAQ_RPMBUILD=yes
 XDAQ_OS=linux
 XDAQ_PLATFORM=x86_64_slc6
 # FecSoftwareV3_0 root directory
-FECSOFTWARE_ROOT=/home/fectest/jmt/FecSWfresh/FecSoftwareV3_0
+FECSOFTWARE_ROOT=${ENV_CMS_TK_FEC_ROOT}
 # Device driver directory
 DEVICEDRIVERPATH=${FECSOFTWARE_ROOT}/FecPciDeviceDriver
 # TriDAS root directory
