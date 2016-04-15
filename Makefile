@@ -31,7 +31,7 @@ INCLUDE_FILES = generic/include/*.h* \
 ########################################
 
 
-all: tracker totem preshower
+all: Generic APIConsoleDebugger
 #	( $(ECHO) "Please specify or 'standalone' or 'tracker' or 'totem' or 'preshower' tags" )
 
 tracker: Generic 
@@ -54,7 +54,7 @@ totem:   Generic Totem
 
 preshower:    Generic PreshowerMake
 
-clean: FecDeviceDriver_clean FecLibFtdi_clean FecUsbDriver_clean  Generic_clean DeviceFactory_clean APIConsoleDebugger_clean XDAQFecSupervisor_clean APIXMLDebugger_clean TestControlLoop_clean GUIDebugger_clean PciConsoleDebugger_clean XDAQDcuFilter_clean XDAQCrateController_clean Totem_clean preshower_clean XDAQTkConfigurationDb_clean VmeConsoleDebugger_clean I2CTemplate_clean DeviceFactoryTemplate_clean	
+clean: Generic_clean APIConsoleDebugger_clean install_clean
 
 FecDeviceDriver:
 	( cd FecPciDeviceDriver ; $(MAKE) ; cd .. )
@@ -224,5 +224,6 @@ install:
 	fi; \
 	) 
 
-
-
+install_clean:
+	rm $(LIB_DEST)/*.{a,so}
+	rm $(BIN_DEST)/*.exe
