@@ -75,6 +75,8 @@ class FecUtcaRingDevice: public FecRingDevice {
  /** \brief Close the device driver
   */
   virtual ~FecUtcaRingDevice ( ) throw ( FecExceptionHandler ) ;
+
+  static void setUhalLogging();
 /** Initialize uHAL connection */
   static void configureUhal (const std::string& connectionFile, const std::string& boardId);
 /**Edit G. Auzinger Initialize uHAL connection */

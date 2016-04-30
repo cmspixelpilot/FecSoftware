@@ -95,12 +95,23 @@ FecUtcaRingDevice::~FecUtcaRingDevice ( ) throw ( FecExceptionHandler )
     //delete hwBoard;
 }
 
+void FecUtcaRingDevice::setUhalLogging() {
+    uhal::GetLoggingMutex().lock();
+    if (getenv("ENV_CMS_TK_UHAL_LOGGING"))
+      uhal::setLogLevelFromEnvironment("ENV_CMS_TK_UHAL_LOGGING");
+    else
+      uhal::setLogLevelTo(uhal::Warning());
+    uhal::GetLoggingMutex().unlock();
+}
+
 void FecUtcaRingDevice::configureUhal (const std::string& connectionFile, const std::string& boardId){
         string strUhalConnectionFile;
         if (connectionFile.substr(0,7).compare("file://"))
                 strUhalConnectionFile = string("file://")+connectionFile;
         else
                 strUhalConnectionFile = connectionFile;
+
+        if (!hwBoard) setUhalLogging();
 
         //strBoardId_ = boardId;
         uhal::ConnectionManager lConnectionManager ( strUhalConnectionFile );
@@ -109,6 +120,7 @@ void FecUtcaRingDevice::configureUhal (const std::string& connectionFile, const 
 
 //Edit G. Auzinger
 void FecUtcaRingDevice::configureUhal (const std::string& connectionFile, const std::string& boardId, const std::string& uri, const std::string& addressTable){
+        if (!hwBoard) setUhalLogging();
         //strBoardId_ = boardId;
         uhal::ConnectionManager lConnectionManager ( connectionFile );
         hwBoard = new uhal::HwInterface(lConnectionManager.getDevice (boardId, uri, addressTable));
